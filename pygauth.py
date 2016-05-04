@@ -22,7 +22,7 @@ class keygen:
     def __bytes__(self):
         return self.myKey
 
-def hmac_sha1(self, key, message):
+def hmac_sha1(key, message):
     hms1 = hmac.new(key, message, hashlib.sha1)
     return hms1.digest()
 
@@ -48,7 +48,7 @@ class GAuth:
         #0x7FFFFFFF = 01111111111111111111111111111111
         truncatedHash = truncatedHash & 0x7FFFFFFF
         code = truncatedHash % 1000000
-        return int(str(code)[-6:])
+        return ("000000"+str(code))[-6:]
     
     def HOTP(self, ioff=0):
         message = struct.unpack(">Q", ioff)[0]
@@ -61,7 +61,7 @@ class GAuth:
         #remove the most significant bit
         #0x7FFFFFFF = 01111111111111111111111111111111
         truncatedHash = truncatedHash & 0x7FFFFFFF
-        return int(str(code)[-6:])
+        return ("000000"+str(code))[-6:]
 
 if name == '__main__': #Test bed
     gauth = GAuth()
